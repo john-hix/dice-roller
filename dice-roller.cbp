@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="DiceList.cpp" />
+		<Unit filename="DiceList.h" />
+		<Unit filename="DiceType.cpp" />
+		<Unit filename="DiceType.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
