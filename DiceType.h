@@ -5,8 +5,9 @@
 // If random number generator has not been seeded, it will be seeded
 // before any calls to the .roll method
 //
-// Example:
-
+// This comes at the expense of storing a boolean value and checking
+// it every time the .roll method is called, but it saves boilerplate
+// for clients.
 
 class DiceType
 {
@@ -32,6 +33,11 @@ class DiceType
         // Gets the current "face-up" value on the die. See constructor
         // for default value directly after instantiation.
         int getCurrVal();
+
+        // Sets current face value of die
+        // Pre:
+        // Post: currVal receives value of yourCurrVal
+        void setCurrVal(int yourCurrVal);
 
         // Returns number of sides the die has
         // Post: returns numSides member variable

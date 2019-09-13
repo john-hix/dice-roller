@@ -33,13 +33,23 @@ int DiceType::roll()
         srand(time(nullptr));
         DiceType::randSeeded = true;
     }
-    // Return a random number between 1 and numSides
-    return rand() % numSides + 1;
+    // Assign currVal a random number between 1 and numSides
+    currVal = rand() % numSides + 1;
+
+    return currVal;
 }
 
 // Gets the current "face-up" value on the die. See constructor
 // for default value directly after instantiation.
 int DiceType::getCurrVal() { return currVal; }
+
+// Sets current face value of die
+// Pre:
+// Post: currVal receives value of yourCurrVal
+void DiceType::setCurrVal(int yourCurrVal)
+{
+    currVal = yourCurrVal;
+}
 
 // Returns number of sides the die has
 // Post: returns numSides member variable

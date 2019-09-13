@@ -1,19 +1,21 @@
 # depslib dependency file v1.0
-1568328559 source:c:\users\john\projects\tcc\csc-210\dice-roller\main.cpp
+1568386986 source:c:\users\john\projects\tcc\csc-210\dice-roller\main.cpp
 	<iostream>
 	<iomanip>
+	<cassert>
 	"DiceType.h"
+	"DiceList.h"
 
-1568328752 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.cpp
+1568386412 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.cpp
 	"DiceType.h"
 	<cstdlib>
 	<ctime>
 
-1568328990 c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.h
+1568388355 c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.h
 
-1568325070 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.cpp
+1568387971 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.cpp
 	"DiceList.h"
 
-1568329154 c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.h
+1568388139 c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.h
 	"DiceType.h"
 
