@@ -97,11 +97,48 @@ void testDiceList()
     li = new DiceList(4);
     // returns nullptr for out of bounds
      assert(li->getNthDie(44) == nullptr);
-    // A few indirect ways to check that it functions properly
-    // and returns an actual object
-    // In JS, I would do a typeof check
+    // Do a duck type check for DiceType with the getNumSides method
     assert(li->getNthDie(1) != nullptr);
     assert(li->getNthDie(1)->getNumSides() == 6);
 
+
+    // Test setLength
+    delete li;
+    // Resize down from positive
+    li = new DiceList(7, 6);
+    li->getNthDie(0)->setCurrVal(3);
+    li->getNthDie(1)->setCurrVal(2);
+
+    li->setNumDice(3);
+    assert(li->getNumDice() == 3);
+    assert(li->getNthDie(0)->getCurrVal() == 3 );
+    assert(li->getNthDie(1)->getCurrVal() == 2 );
+    assert(li->getNthDie(2)->getCurrVal() == 6 );
+
+    // Resize up from positive
+    delete li;
+    // Preserves an default numsides for new dice
+    li = new DiceList(2);
+    li->setNumDice(4);
+    assert(li->getNumDice() == 4);
+    assert(li->getNthDie(3)->getNumSides() == DiceType::DEFAULT_NUM_SIDES);
+
+    // Preserves a set defaultNumSides for new dice
+    li->setDefaultNumSides(8);
+    li->setNumDice(6);
+    assert(li->getNthDie(5)->getNumSides() == 8 );
+
+    // Resize up from zero
+    delete li;
+    li = new DiceList;
+    li->setNumDice(5);
+    assert(li->getNthDie(4)->getNumSides() == DiceType::DEFAULT_NUM_SIDES);
+
+    // Resize down to zero
+    delete li;
+    li = new DiceList(5);
+    li->setNumDice(0);
+    assert(li->getNumDice() == 0);
+    assert(li->getNthDie(0) == nullptr);
 
 }

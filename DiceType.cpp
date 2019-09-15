@@ -5,20 +5,22 @@
 bool DiceType::randSeeded = false;
 
 // Default constructor
-// Post: numSides and currVal is set to 6
+// Post: numSides and currVal is set to value of DiceType::DEFAULT_NUM_SIDES
 DiceType::DiceType()
 {
-    numSides = 6;
-    currVal  = 6;
+    numSides = DiceType::DEFAULT_NUM_SIDES;
+    currVal  = numSides;
 }
 
 // Constructor to set numSides during initialization
 // Post: new DiceType object is init'd with yourNumSides number of sides
 //       currVal is set to yourNumSides if yourNumSides > 1
-//       if yourNumSides is < 1, a default value of 6 is set for numSides
+//       if yourNumSides is < 2, DiceType::DEFAULT_NUM_SIDES is set for numSides
 DiceType::DiceType(int yourNumSides)
 {
-    setNumSides(yourNumSides);
+    if ( !setNumSides(yourNumSides) )
+        numSides = DiceType::DEFAULT_NUM_SIDES;
+
 }
 
 // Simulates die roll; changes the currVal to pseudorandom number
@@ -57,16 +59,18 @@ int DiceType::getNumSides() { return numSides; }
 
 
 // Sets the number of sides the die has
-// Post: numSides is set to the value passed
-//       if yourNumSides is < 1, a default value of 6 is set for numSides
-//       currVal is set to numSides
-void DiceType::setNumSides(int yourNumSides)
+// Post: if yourNumSides is < 2, this method has no effect and returns false
+//       else, numSides is set to yourNumSides
+//       and currVal is set to numSides
+//       and method returns true
+bool DiceType::setNumSides(int yourNumSides)
 {
-    if (yourNumSides < 1) {
-        yourNumSides = 6;
+    if (yourNumSides > 1) {
+        numSides = yourNumSides;
+        currVal  = yourNumSides;
+        return true;
     }
-    numSides = yourNumSides;
-    currVal  = yourNumSides;
+    return false;
 }
 
 

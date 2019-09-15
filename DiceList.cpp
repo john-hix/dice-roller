@@ -1,4 +1,13 @@
 #include "DiceList.h"
+#include "DiceType.h"
+
+DiceList::DiceList()
+{
+    diceArr = nullptr;
+    numDice = 0;
+    defaultNumSides = DiceType::DEFAULT_NUM_SIDES;
+}
+
 
 // Build dice list and set number of sides each die
 // in the list will contain and the number of dice
@@ -13,10 +22,15 @@ DiceList::DiceList(int yourNumDice, int yourNumSides)
     // Update value of numDice
     numDice = yourNumDice;
 
+    // Attempt to set defaultNumSides; if validation fails,
+    // use the default from DiceType class
+    if (setDefaultNumSides(yourNumSides) == false)
+        defaultNumSides = DiceType::DEFAULT_NUM_SIDES;
+
     // Set sides of dice according to yourNumDice formal parameter
     for (int i=0; i < yourNumDice; i++)
     {
-        diceArr[i].setNumSides(yourNumSides);
+        diceArr[i].setNumSides(defaultNumSides);
     }
 }
 
@@ -30,8 +44,8 @@ DiceList::DiceList(int yourNumDice)
     diceArr = new DiceType[yourNumDice];
     // Update value of numDice
     numDice = yourNumDice;
+    defaultNumSides = DiceType::DEFAULT_NUM_SIDES;
 }
-
 
 // Copy constructor
 // Post: current object receives the number of DiceType objects,
@@ -42,8 +56,11 @@ DiceList::DiceList (const DiceList &other)
     delete[] diceArr;
     // Allocate array according to size of other's array
     numDice  = other.numDice;
-    diceArr = new DiceType[numDice];
-    // Copy values of all dice in other to dice in our array
+    if (numDice > 0)
+        diceArr = new DiceType[numDice];
+    else
+        diceArr = nullptr;
+    // Copy values of all dice in other, if any, to dice in our array
     // note: our numDice and other's numDice are equal at this point
     for (int i = 0; i < numDice; i++)
     {
@@ -63,18 +80,61 @@ DiceList::~DiceList()
 // Post: returns numDice property
 int DiceList::getNumDice() { return numDice; }
 
+// n must be positive or zero for this to have any effect
+void DiceList::setNumDice(int n)
+{
+    DiceType* newDiceArr;
+
+    // Restrict domain of values that have an effect
+    // Can't resize to negative; no need to do anything if size already matches
+    if (n < 0 || n == numDice) {
+        return;
+    }
+
+    // Create destination array or make null if no array needed
+    // Subsequent checks on n should avoid trying to access array indices on
+    // nullptr
+    if (n > 0)
+        newDiceArr = new DiceType [n];
+    else
+        newDiceArr = nullptr;
+
+    // Preserve as many dice values and numSides as possible by copying up to as many
+    // as were in the old array but nor more than what will fit in the new array
+    for (int i= 0; i < n && i < numDice; i++) {
+        newDiceArr[i].setNumSides( diceArr[i].getNumSides() );
+        newDiceArr[i].setCurrVal( diceArr[i].getCurrVal() );
+    }
+
+    // Set any newly created diceList members with default numSides
+    for (int i = numDice -1; i < n; i++) {
+        newDiceArr[i].setNumSides(defaultNumSides);
+    }
+
+    // Manage memory (not always necessary, say n < diceArr length, but managing when to
+    // resize seems out of scope for this assignment and its performance requirements)
+    delete [] diceArr;
+    diceArr = newDiceArr;
+
+    // Update numDice
+    numDice = n;
+
+} // end DiceList::setNumDice
+
 // Rolls all dice in the list
 // Post: all dice have had their .roll method called. Cf DiceType spec
 void DiceList::rollAll()
 {
+    // Roll all dice in list, if any
     for (int i = 0; i < numDice; i++)
     {
        diceArr[i].roll();
     }
+
 }
 
 // Get a pointer to the nth die in the list
-// NOTE: will not throw exception if index is < 0
+// NOTE: will NOT throw exception if index is < 0
 // Post: returns a memory address for values of n that are in bounds,
 //       returns nullptr if n is out of bounds.
 DiceType* DiceList::getNthDie(int n)
@@ -85,3 +145,20 @@ DiceType* DiceList::getNthDie(int n)
     // If ok, return memory address
     return &diceArr[n];
 }
+
+int DiceList::getDefaultNumSides()
+{
+    return defaultNumSides;
+}
+
+bool DiceList::setDefaultNumSides(int yourDefaultNumSides)
+{
+    if (yourDefaultNumSides > 1) {
+        // Dice can only have more than 1 side; cf DiceType spec
+        defaultNumSides = yourDefaultNumSides;
+        return true;
+    }
+    return false;
+}
+
+

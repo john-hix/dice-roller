@@ -12,15 +12,17 @@
 class DiceType
 {
     public:
+        // Default number of sides a DiceType object will have
+        static const int DEFAULT_NUM_SIDES = 6;
 
         // Default constructor
-        // Post: numSides and currVal is set to 6
+        // Post: numSides and currVal is set to the value of DEFAULT_NUM_SIDES constant
         DiceType();
 
         // Constructor to set numSides during initialization
         // Post: new DiceType object is init'd with yourNumSides number of sides
         //       currVal is set to yourNumSides if yourNumSides > 1
-        //       if yourNumSides is < 1, a default value of 6 is set for numSides
+        //       if yourNumSides is < 2, DiceType::DEFAULT_NUM_SIDES is set for numSides
         DiceType(int yourNumSides);
 
         // Simulates die roll; changes the currVal to pseudorandom number
@@ -44,10 +46,11 @@ class DiceType
         int getNumSides();
 
         // Sets the number of sides the die has
-        // Post: numSides is set to the value passed
-        //       if yourNumSides is < 1, a default value of 6 is set for numSides
-        //       currVal is set to numSides
-        void setNumSides(int yourNumSides);
+        // Post: if yourNumSides is < 2, this method has no effect and returns false
+        //       else, numSides is set to yourNumSides
+        //       and currVal is set to numSides
+        //       and method returns true
+        bool setNumSides(int yourNumSides);
 
     private:
         static bool randSeeded;
