@@ -33,7 +33,7 @@ void DiceRollUi::StartUp()
     cout << "How many dice should be in the list initially?\n"
         << " (You can change this later.)\n";
     GetInt(initNumDice, 0, INT_MAX);
-    dice.setNumDice(initNumDice);
+    dice.SetNumDice(initNumDice);
 
     // Prompt number of sides each die should have
     // Meet preconditions of setNumSides and SetDefaultNumSides
@@ -43,15 +43,15 @@ void DiceRollUi::StartUp()
     GetInt(initNumSides, DiceType::MIN_NUM_SIDES, INT_MAX);
 
     // Set number of sides with value obtained from user
-    dice.setNumSides(initNumSides);
-    dice.setDefaultNumSides(initNumSides);
+    dice.SetNumSides(initNumSides);
+    dice.SetDefaultNumSides(initNumSides);
 
     // Check for Easter egg
     EasterEggCoins(initNumSides);
 
     // Beginning with a rolled list, rather than a list all the same number,
     // the number of sides they have, is more intuitive for the user.
-    dice.rollAll();
+    dice.RollAll();
 
     cout << endl << "Your current role and the dice's current number of sides are shown\n"
         << "after every command. Try rolling the dice!\n\n";
@@ -71,11 +71,12 @@ void DiceRollUi::Menu()
     while (choice != 'Q') {
         cout << endl;
         // Show how many sides are on the dice
-        cout << "Number of sides: " << dice.getDefaultNumSides() << endl;
+        cout << "Number of sides: " << dice.GetDefaultNumSides() << ", "
+            << "Number of dice: " << dice.GetNumDice() << endl;
 
         // Display dice values
         cout << "Current roll: ";
-        dice.printList();
+        dice.PrintList();
         cout << endl;   // Formatting; printList does not use endline
 
         // prompt for choice
@@ -94,22 +95,22 @@ void DiceRollUi::Menu()
 
         // Roll dice
         case 'R':
-            dice.rollAll(); // Roll all dice in the list
+            dice.RollAll(); // Roll all dice in the list
             break;
 
         // Change number of dice
         case 'N':
             cout << "Changing # of dice.\n";    // Feedback
             GetInt(integerInput, 0, INT_MAX);   // Get a valid integer
-            dice.setNumDice(integerInput);      // Change number of dice
+            dice.SetNumDice(integerInput);      // Change number of dice
             break;
 
         // Change number of sides on dice
         case 'S':
             cout << "Changing # of sides on the dice (some dice's rolls may change).\n";
             GetInt(integerInput, DiceType::MIN_NUM_SIDES, INT_MAX);
-            dice.setNumSides(integerInput);         // Set number of sides for current dice
-            dice.setDefaultNumSides(integerInput);  // Set number of sides for any dice added later
+            dice.SetNumSides(integerInput);         // Set number of sides for current dice
+            dice.SetDefaultNumSides(integerInput);  // Set number of sides for any dice added later
             // Check easter egg
             EasterEggCoins(integerInput);
 

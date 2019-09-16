@@ -27,13 +27,13 @@ DiceList::DiceList(/*IN*/ int yourNumDice, /*IN*/ int yourNumSides)
 
     // Attempt to set defaultNumSides; if validation fails,
     // use the default from DiceType class
-    if (setDefaultNumSides(yourNumSides) == false)
+    if (SetDefaultNumSides(yourNumSides) == false)
         defaultNumSides = DiceType::DEFAULT_NUM_SIDES;
 
     // Set sides of dice according to yourNumDice formal parameter
     for (int i=0; i < yourNumDice; i++)
     {
-        diceArr[i].setNumSides(defaultNumSides);
+        diceArr[i].SetNumSides(defaultNumSides);
     }
 }
 
@@ -68,7 +68,7 @@ DiceList::DiceList (/*IN*/ const DiceList &other)
     // note: our numDice and other's numDice are equal at this point
     for (int i = 0; i < numDice; i++)
     {
-        diceArr[i].setCurrVal( other.diceArr[i].getCurrVal() );
+        diceArr[i].SetCurrVal( other.diceArr[i].GetCurrVal() );
     }
 }
 
@@ -83,14 +83,14 @@ DiceList::~DiceList()
 // Gets number of dice in the list
 // Pre: object instantiated
 // Post: returns numDice property
-int DiceList::getNumDice() const { return numDice; }
+int DiceList::GetNumDice() const { return numDice; }
 
 // Changes number of dice in the list, either removing or adding them
 //as necessary
 // Pre:  n must be positive or zero for this to have any effect
 // Post: diceArr is resized if n did not match numDice.
 //       new DiceType objects were instantiated with default values if needed
-void DiceList::setNumDice(/*IN*/ int n)
+void DiceList::SetNumDice(/*IN*/ int n)
 {
     DiceType* newDiceArr;
 
@@ -111,13 +111,13 @@ void DiceList::setNumDice(/*IN*/ int n)
     // Preserve as many dice values and numSides as possible by copying up to as many
     // as were in the old array but nor more than what will fit in the new array
     for (int i= 0; i < n && i < numDice; i++) {
-        newDiceArr[i].setNumSides( diceArr[i].getNumSides() );
-        newDiceArr[i].setCurrVal( diceArr[i].getCurrVal() );
+        newDiceArr[i].SetNumSides( diceArr[i].GetNumSides() );
+        newDiceArr[i].SetCurrVal( diceArr[i].GetCurrVal() );
     }
 
     // Set any newly created diceList members with default numSides
     for (int i = numDice -1; i < n; i++) {
-        newDiceArr[i].setNumSides(defaultNumSides);
+        newDiceArr[i].SetNumSides(defaultNumSides);
     }
 
     // Manage memory (not always necessary, say n < diceArr length, but managing when to
@@ -133,12 +133,12 @@ void DiceList::setNumDice(/*IN*/ int n)
 // Rolls all dice in the list
 // Pre: object instantiated; no need to actually have dice
 // Post: all dice have had their .roll method called. Cf DiceType spec
-void DiceList::rollAll()
+void DiceList::RollAll()
 {
     // Roll all dice in list, if any
     for (int i = 0; i < numDice; i++)
     {
-       diceArr[i].roll();
+       diceArr[i].Roll();
     }
 
 }
@@ -148,7 +148,7 @@ void DiceList::rollAll()
 // NOTE: will not throw exception if index is < 0
 // Post: returns a memory address for values of n that are in bounds,
 //       returns nullptr if n is out of bounds.
-DiceType* DiceList::getNthDie(/*IN*/ int n)
+DiceType* DiceList::GetNthDie(/*IN*/ int n)
 {
     // Check if caller's index is out of bounds
     if (n < 0 || n >= numDice)
@@ -163,10 +163,10 @@ DiceType* DiceList::getNthDie(/*IN*/ int n)
 //       the currVal of each die in the list matches its number of sides
 //       if n > 1, defaultNumSides is set, and dice added to list in the future will
 //      have n number of sides
-bool DiceList::setNumSides(int n) {
-    if (setDefaultNumSides(n)) {    // Attempt to set as the default
+bool DiceList::SetNumSides(int n) {
+    if (SetDefaultNumSides(n)) {    // Attempt to set as the default
         for (int i = 0; i < numDice; i++) {
-            diceArr[i].setNumSides(n);  // Should succeed if n passed
+            diceArr[i].SetNumSides(n);  // Should succeed if n passed
                                         // setDefaultNumSides' validation.
         }
         return true;
@@ -177,7 +177,7 @@ bool DiceList::setNumSides(int n) {
 // Gets default number of sides any new dice added to the list will receive
 // Pre:  object instantiated
 // Post: returns value of defaultNumSides member variable
-int DiceList::getDefaultNumSides() const
+int DiceList::GetDefaultNumSides() const
 {
     return defaultNumSides;
 }
@@ -188,7 +188,7 @@ int DiceList::getDefaultNumSides() const
 //       else, defaultNumSides receives the value of yourDefaultNumSides
 //          defaultNumSides is set to yourDefaultNumSides
 //          returns true
-bool DiceList::setDefaultNumSides(/*IN*/ int yourDefaultNumSides)
+bool DiceList::SetDefaultNumSides(/*IN*/ int yourDefaultNumSides)
 {
     if (yourDefaultNumSides >= DiceType::MIN_NUM_SIDES) {
         // Dice can only have more than 1 side; cf DiceType spec
@@ -203,7 +203,7 @@ bool DiceList::setDefaultNumSides(/*IN*/ int yourDefaultNumSides)
 // Post: diceArr's DiceType's values are all printed to cout
 // with a line break per 20 dice values printed,
 // or the string "No dice in list!" is printed. Both include a leading newline
-void DiceList::printList() const {
+void DiceList::PrintList() const {
     // Check if list is empty and display message
     // Newline because the mod-determined line break
     // Below adds a new line i == 0. Do this for empty list to match formatting
@@ -215,7 +215,7 @@ void DiceList::printList() const {
         if (i % 20 == 0) {
             cout << endl;
         }
-        cout << diceArr[i].getCurrVal() << ' ';
+        cout << diceArr[i].GetCurrVal() << ' ';
     }
 }
 

@@ -26,22 +26,22 @@ class DiceType
         // Post: srand is seeded if it wasn't already seeded by a DiceType
         //       currVal is changed
         //       returns rolled value
-        int roll();
+        int Roll();
 
         // Getter for currVal, the current "face-up" value on the die.
         // Pre:  object instantiated
         // Post: returns value of currVal
-        int getCurrVal() const;
+        int GetCurrVal() const;
 
         // Sets current face value of die
         // Pre: yourCurrVal contains roll value to give to DiceType object
         // Post: currVal receives value of yourCurrVal
-        void setCurrVal(/*IN*/ int yourCurrVal);
+        void SetCurrVal(/*IN*/ int yourCurrVal);
 
         // Returns number of sides the DiceType object has
         // Pre: object instantiated
         // Post: returns numSides member variable
-        int getNumSides() const;
+        int GetNumSides() const;
 
         // Sets the number of sides the die has
         // Pre: yourNumSides contains a value to set as the number of sides the DiceType has
@@ -49,7 +49,7 @@ class DiceType
         //       else, numSides is set to yourNumSides
         //       and if currVal > yourNumSides, currVal is set to yourNumSides
         //       and method returns true
-        bool setNumSides(/*IN*/ int yourNumSides);
+        bool SetNumSides(/*IN*/ int yourNumSides);
 
     private:
         // randSeeded indicates whether this class has seeded random number generator

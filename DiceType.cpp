@@ -20,7 +20,7 @@ DiceType::DiceType()
 //       if yourNumSides is < 2, DiceType::DEFAULT_NUM_SIDES is set for numSides
 DiceType::DiceType(/*IN*/ int yourNumSides)
 {
-    if ( !setNumSides(yourNumSides) )
+    if ( !SetNumSides(yourNumSides) )
         numSides = DiceType::DEFAULT_NUM_SIDES;
 
 }
@@ -30,7 +30,7 @@ DiceType::DiceType(/*IN*/ int yourNumSides)
 // Post: srand is seeded if it wasn't already seeded by a DiceType
 //       currVal is changed
 //       returns rolled value
-int DiceType::roll()
+int DiceType::Roll()
 {
     // Check if rand is seeded; if not, do it
     if ( ! DiceType::randSeeded ) {
@@ -46,12 +46,12 @@ int DiceType::roll()
 // Getter for currVal, the current "face-up" value on the die.
 // Pre:  object instantiated
 // Post: returns value of currVal
-int DiceType::getCurrVal() const { return currVal; }
+int DiceType::GetCurrVal() const { return currVal; }
 
 // Sets current face value of die
 // Pre: yourCurrVal contains roll value to give to DiceType object
 // Post: currVal receives value of yourCurrVal
-void DiceType::setCurrVal(/*IN*/ int yourCurrVal)
+void DiceType::SetCurrVal(/*IN*/ int yourCurrVal)
 {
     currVal = yourCurrVal;
 }
@@ -59,7 +59,7 @@ void DiceType::setCurrVal(/*IN*/ int yourCurrVal)
 // Returns number of sides the DiceType object has
 // Pre: object instantiated
 // Post: returns numSides member variable
-int DiceType::getNumSides() const { return numSides; }
+int DiceType::GetNumSides() const { return numSides; }
 
 
 // Sets the number of sides the die has
@@ -68,7 +68,7 @@ int DiceType::getNumSides() const { return numSides; }
 //       else, numSides is set to yourNumSides
 //       and if currVal > yourNumSides, currVal is set to yourNumSides
 //       and method returns true
-bool DiceType::setNumSides(/*IN*/ int yourNumSides)
+bool DiceType::SetNumSides(/*IN*/ int yourNumSides)
 {
     if (yourNumSides >= DiceType::MIN_NUM_SIDES) {
         // Check if the value needs to be sized down
