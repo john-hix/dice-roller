@@ -14,6 +14,7 @@ class DiceType
     public:
         // Default number of sides a DiceType object will have
         static const int DEFAULT_NUM_SIDES = 6;
+        static const int MIN_NUM_SIDES = 2;
 
         // Default constructor
         // Post: numSides and currVal is set to the value of DEFAULT_NUM_SIDES constant
@@ -46,9 +47,9 @@ class DiceType
         int getNumSides();
 
         // Sets the number of sides the die has
-        // Post: if yourNumSides is < 2, this method has no effect and returns false
+        // Post: if yourNumSides is < DiceType::MIN_NUM_SIDES, this method has no effect and returns false
         //       else, numSides is set to yourNumSides
-        //       and currVal is set to numSides
+        //       and if currVal > yourNumSides, currVal is set to yourNumSides
         //       and method returns true
         bool setNumSides(int yourNumSides);
 

@@ -59,15 +59,18 @@ int DiceType::getNumSides() { return numSides; }
 
 
 // Sets the number of sides the die has
-// Post: if yourNumSides is < 2, this method has no effect and returns false
+// Post: if yourNumSides is < DiceType::MIN_NUM_SIDES, this method has no effect and returns false
 //       else, numSides is set to yourNumSides
-//       and currVal is set to numSides
+//       and if currVal > yourNumSides, currVal is set to yourNumSides
 //       and method returns true
 bool DiceType::setNumSides(int yourNumSides)
 {
-    if (yourNumSides > 1) {
+    if (yourNumSides >= DiceType::MIN_NUM_SIDES) {
+        // Check if the value needs to be sized down
+        if (yourNumSides < currVal) {
+            currVal  = yourNumSides;
+        }
         numSides = yourNumSides;
-        currVal  = yourNumSides;
         return true;
     }
     return false;

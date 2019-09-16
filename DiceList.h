@@ -39,6 +39,13 @@ class DiceList
         // Post: returns a memory address for values of n that are in bounds,
         //       returns nullptr if n is out of bounds.
         DiceType* getNthDie(int n);
+
+        // Sets number of sides each die in the list has
+        // Pre:
+        // Post: each die has n number of sides if n > 1
+        //       the currVal of each die in the list matches its number of sides
+        bool setNumSides(int n);
+
         // Gets default number of sides any new dice added to the list will receive
         // Post: returns value of defaultNumSides member variable
         int getDefaultNumSides();
@@ -50,6 +57,11 @@ class DiceList
         //          defaultNumSides is set to yourDefaultNumSides
         //          returns true
         bool setDefaultNumSides(int yourDefaultNumSides);
+
+        // Print to cout, giving line break every 10 dice
+        // Post diceArr's DiceType's values are all printed to cout
+        // with a line break per 20 dice values printed
+        void printList();
 
   private:
       DiceType* diceArr;   // Dynamic array of dice

@@ -1,5 +1,8 @@
 #include "DiceList.h"
 #include "DiceType.h"
+#include <iostream>
+
+using namespace std;
 
 DiceList::DiceList()
 {
@@ -146,6 +149,23 @@ DiceType* DiceList::getNthDie(int n)
     return &diceArr[n];
 }
 
+// Sets number of sides each die in the list has
+// Pre:
+// Post: each die has n number of sides if n > 1
+//       the currVal of each die in the list matches its number of sides
+//       if n > 1, defaultNumSides is set, and dice added to list in the future will
+//      have n number of sides
+bool DiceList::setNumSides(int n) {
+    if (setDefaultNumSides(n)) {    // Attempt to set as the default
+        for (int i = 0; i < numDice; i++) {
+            diceArr[i].setNumSides(n);  // Should succeed if n passed
+                                        // setDefaultNumSides' validation.
+        }
+        return true;
+    }
+    return false;
+}
+
 int DiceList::getDefaultNumSides()
 {
     return defaultNumSides;
@@ -161,4 +181,22 @@ bool DiceList::setDefaultNumSides(int yourDefaultNumSides)
     return false;
 }
 
+// Print to cout, giving line break every 10 dice
+// Post diceArr's DiceType's values are all printed to cout
+// with a line break per 20 dice values printed
+void DiceList::printList() {
+    // Check if list is empty and display message
+    // Newline because the mod-determined line break
+    // Below adds a new line i == 0. Do this for empty list to match formatting
+    if (numDice < 1)
+        cout << "\nNo dice in list!";
+
+    // Print to cout, giving line break every 10 dice
+    for (int i =0; i < numDice; i++) {
+        if (i % 20 == 0) {
+            cout << endl;
+        }
+        cout << diceArr[i].getCurrVal() << ' ';
+    }
+}
 

@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="DiceList.cpp" />
 		<Unit filename="DiceList.h" />
+		<Unit filename="DiceRollUi.cpp" />
+		<Unit filename="DiceRollUi.h" />
 		<Unit filename="DiceType.cpp" />
 		<Unit filename="DiceType.h" />
 		<Unit filename="main.cpp" />

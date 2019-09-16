@@ -1,10 +1,8 @@
 #include <iostream>
-#include <iomanip>
 #include <cassert>
 #include "DiceType.h"
 #include "DiceList.h"
-
-// #include "assertions.h"
+#include "DiceRollUi.h"
 
 using namespace std;
 
@@ -13,21 +11,15 @@ void testDiceList();
 
 int main()
 {
-    srand(time(nullptr));
-    cout << "Hello world!" << endl;
 
-    // While user does not quit
+//    testDiceType();
+//    testDiceList();
 
-    // Prompt for number of dice or to quit
-
-        // Build list
-
-        // roll all die
-
-        // print results
-
-    testDiceType();
-    testDiceList();
+    DiceRollUi game;
+    game.init();
+    game.Menu();
+    cout << endl;
+    game.farewell();
 
     return 0;
 }
