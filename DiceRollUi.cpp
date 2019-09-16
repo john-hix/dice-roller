@@ -6,12 +6,20 @@
 
 using namespace std;
 
+// Default constructor
+// Pre: none
+// Post: DiceList's default constructor is called
 DiceRollUi::DiceRollUi()
 {
     //ctor
 }
 
-void DiceRollUi::init()
+// Starts game by greeting user, describing game,
+//and gathering initial dice count and the number of sides the dice should have
+// Pre:  object instantiated
+// Post: A fair amount of console output
+//       user has been prompted for and dice has received values for numDice and defaultNumSides
+void DiceRollUi::StartUp()
 {
     int initNumDice;  // Specify how many dice to start with
     int initNumSides; // Specify how many sides each die in the list should have
@@ -24,15 +32,15 @@ void DiceRollUi::init()
 
     cout << "How many dice should be in the list initially?\n"
         << " (You can change this later.)\n";
-    getInt(initNumDice, 0, INT_MAX);
+    GetInt(initNumDice, 0, INT_MAX);
     dice.setNumDice(initNumDice);
 
     // Prompt number of sides each die should have
     // Meet preconditions of setNumSides and SetDefaultNumSides
     // for having effect by getting only positive integers
     cout << "\nHow many sides should the dice have initially?"
-        << " (You can change this later, too.)\n";
-    getInt(initNumSides, DiceType::MIN_NUM_SIDES, INT_MAX);
+        << "(You can change this later, too.)\n";
+    GetInt(initNumSides, DiceType::MIN_NUM_SIDES, INT_MAX);
 
     // Set number of sides with value obtained from user
     dice.setNumSides(initNumSides);
@@ -50,6 +58,10 @@ void DiceRollUi::init()
 
 }
 
+// Prompts user for in-game options: rolling dice, resizing array, changing numSides on all dice, quitting
+// Pre:  StartUp has been called
+// Post: Possibly many state changes may have occurred to dice member
+//       User has quit the game
 void DiceRollUi::Menu()
 {
     char choice = 'z';  // Initialized as something other than a menu option
@@ -88,14 +100,14 @@ void DiceRollUi::Menu()
         // Change number of dice
         case 'N':
             cout << "Changing # of dice.\n";    // Feedback
-            getInt(integerInput, 0, INT_MAX);   // Get a valid integer
+            GetInt(integerInput, 0, INT_MAX);   // Get a valid integer
             dice.setNumDice(integerInput);      // Change number of dice
             break;
 
         // Change number of sides on dice
         case 'S':
             cout << "Changing # of sides on the dice (some dice's rolls may change).\n";
-            getInt(integerInput, DiceType::MIN_NUM_SIDES, INT_MAX);
+            GetInt(integerInput, DiceType::MIN_NUM_SIDES, INT_MAX);
             dice.setNumSides(integerInput);         // Set number of sides for current dice
             dice.setDefaultNumSides(integerInput);  // Set number of sides for any dice added later
             // Check easter egg
@@ -110,14 +122,27 @@ void DiceRollUi::Menu()
         // Invalid entry
         default:
             cout << "Invalid entry. Please enter an option from the menu.\n\n"; // prompt
-            cin.ignore(999, '\n'); // Ignore any other characters in cin
         }
+        cin.ignore(999, '\n'); // Ignore any other characters in cin
+        system("cls");
     }
 }
 
-void DiceRollUi::getInt(int& i, int lowerBound, int upperBound) {
+// Prints a thank-you to user for playing the game
+// Pre: none, although calling before end of game would be confusing to the user
+// Post: "Thank you for playing!" is printed to cout
+void DiceRollUi::Farewell() {
+    // Bid farewell
+    cout << "**** Thank you for playing! ****\n\n";
+}
+
+// Prompts for and validates an integer from lowerbound (inclusive) to upperBound (inclusive)
+// Pre: i is an int variable; lowerBound and upperBound are integers
+// Post: user has been prompted for unit an i in the set [lowerBound, upperBound] is entered
+void DiceRollUi::GetInt(/*OUT*/ int& i, /*IN*/ int lowerBound, /*IN*/ int upperBound) {
     cout << "Enter an integer: ";
     cin >> i;
+    // Validate and reprompt if needed
     while (!cin || i < lowerBound || i > upperBound) {
         if (!cin) {
             cin.clear();
@@ -129,19 +154,21 @@ void DiceRollUi::getInt(int& i, int lowerBound, int upperBound) {
     }
 }
 
-void DiceRollUi::EasterEggCoins(int i) {
-    if (i == 2) {
+// Clears the screen and asks the user if they mean to flip coins rather than
+//roll dice if they attempt to change the number of dice sides to 2
+// Pre: numDiceSides is integer
+// Post: if numDiceSides is 2, cls and pause have been called
+void DiceRollUi::EasterEggCoins(int numDiceSides) {
+    if (numDiceSides == 2) {
         system("cls");
         cout << "Flipping coins?\n";
         system("pause");
     }
 }
 
-void DiceRollUi::farewell() {
-    // Bid farewell
-    cout << "**** Thank you for playing! ****\n\n";
-}
-
+// Prints ASCII-art depicting dice to cout
+// Pre: none
+// Post: nine lines are printed to cout
 void DiceRollUi::AsciiArt()
 {
     cout

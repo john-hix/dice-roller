@@ -16,11 +16,12 @@ using namespace std;
 int main()
 {
 
+    // Instantiate a DiceRollUi object and run it once.
     DiceRollUi game;
-    game.init();
-    game.Menu();
+    game.StartUp();  // Greet user and get initial values
+    game.Menu();     // Enter game menu
     cout << endl;
-    game.farewell();
+    game.Farewell(); // Thank user for playing
 
     return 0;
 }

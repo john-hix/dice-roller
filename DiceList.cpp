@@ -18,7 +18,7 @@ DiceList::DiceList()
 // that is the responsibility of the DiceType class
 // Post: DiceList initialized with numDice number of diceType
 // objects stored, each with numSides number of sides.
-DiceList::DiceList(int yourNumDice, int yourNumSides)
+DiceList::DiceList(/*IN*/ int yourNumDice, /*IN*/ int yourNumSides)
 {
     // Allocate memory for array
     diceArr = new DiceType[yourNumDice];
@@ -41,7 +41,7 @@ DiceList::DiceList(int yourNumDice, int yourNumSides)
 // Set number of dice and allow them to receive default values
 // cf DiceType spec
 // Post: DiceList contains yourNumDice number of DiceType objects
-DiceList::DiceList(int yourNumDice)
+DiceList::DiceList(/*IN*/ int yourNumDice)
 {
     // Allocate memory for array, allow default diceType currVal to be used
     diceArr = new DiceType[yourNumDice];
@@ -51,9 +51,10 @@ DiceList::DiceList(int yourNumDice)
 }
 
 // Copy constructor
+// Pre:  otherDiceList is instantiated
 // Post: current object receives the number of DiceType objects,
 // with the same values and ordering, as otherDiceList
-DiceList::DiceList (const DiceList &other)
+DiceList::DiceList (/*IN*/ const DiceList &other)
 {
     // Make sure current memory is deallocated
     delete[] diceArr;
@@ -80,11 +81,16 @@ DiceList::~DiceList()
 }
 
 // Gets number of dice in the list
+// Pre: object instantiated
 // Post: returns numDice property
-int DiceList::getNumDice() { return numDice; }
+int DiceList::getNumDice() const { return numDice; }
 
-// n must be positive or zero for this to have any effect
-void DiceList::setNumDice(int n)
+// Changes number of dice in the list, either removing or adding them
+//as necessary
+// Pre:  n must be positive or zero for this to have any effect
+// Post: diceArr is resized if n did not match numDice.
+//       new DiceType objects were instantiated with default values if needed
+void DiceList::setNumDice(/*IN*/ int n)
 {
     DiceType* newDiceArr;
 
@@ -125,6 +131,7 @@ void DiceList::setNumDice(int n)
 } // end DiceList::setNumDice
 
 // Rolls all dice in the list
+// Pre: object instantiated; no need to actually have dice
 // Post: all dice have had their .roll method called. Cf DiceType spec
 void DiceList::rollAll()
 {
@@ -136,11 +143,12 @@ void DiceList::rollAll()
 
 }
 
-// Get a pointer to the nth die in the list
-// NOTE: will NOT throw exception if index is < 0
+// Get a pointer to the nth die in the list, zero-based index
+// Pre: object instantiated
+// NOTE: will not throw exception if index is < 0
 // Post: returns a memory address for values of n that are in bounds,
 //       returns nullptr if n is out of bounds.
-DiceType* DiceList::getNthDie(int n)
+DiceType* DiceList::getNthDie(/*IN*/ int n)
 {
     // Check if caller's index is out of bounds
     if (n < 0 || n >= numDice)
@@ -166,14 +174,23 @@ bool DiceList::setNumSides(int n) {
     return false;
 }
 
-int DiceList::getDefaultNumSides()
+// Gets default number of sides any new dice added to the list will receive
+// Pre:  object instantiated
+// Post: returns value of defaultNumSides member variable
+int DiceList::getDefaultNumSides() const
 {
     return defaultNumSides;
 }
 
-bool DiceList::setDefaultNumSides(int yourDefaultNumSides)
+// Sets default number of sides to give any new dice added to the list
+// Post: if yourDefaultNumSides is < DiceType::MIN_NUM_SIDES
+//          returns false
+//       else, defaultNumSides receives the value of yourDefaultNumSides
+//          defaultNumSides is set to yourDefaultNumSides
+//          returns true
+bool DiceList::setDefaultNumSides(/*IN*/ int yourDefaultNumSides)
 {
-    if (yourDefaultNumSides > 1) {
+    if (yourDefaultNumSides >= DiceType::MIN_NUM_SIDES) {
         // Dice can only have more than 1 side; cf DiceType spec
         defaultNumSides = yourDefaultNumSides;
         return true;
@@ -181,10 +198,12 @@ bool DiceList::setDefaultNumSides(int yourDefaultNumSides)
     return false;
 }
 
-// Print to cout, giving line break every 10 dice
-// Post diceArr's DiceType's values are all printed to cout
-// with a line break per 20 dice values printed
-void DiceList::printList() {
+// Print roll values of the list's dice to cout, giving line break every 10 dice
+// Pre:  object instantiated
+// Post: diceArr's DiceType's values are all printed to cout
+// with a line break per 20 dice values printed,
+// or the string "No dice in list!" is printed. Both include a leading newline
+void DiceList::printList() const {
     // Check if list is empty and display message
     // Newline because the mod-determined line break
     // Below adds a new line i == 0. Do this for empty list to match formatting

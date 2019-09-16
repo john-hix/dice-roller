@@ -1,33 +1,32 @@
 # depslib dependency file v1.0
-1568601737 source:c:\users\john\projects\tcc\csc-210\dice-roller\main.cpp
+1568605992 source:c:\users\john\projects\tcc\csc-210\dice-roller\main.cpp
 	<iostream>
-	<cassert>
 	"DiceType.h"
 	"DiceList.h"
 	"DiceRollUi.h"
 
-1568598948 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.cpp
+1568604725 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.cpp
 	"DiceType.h"
 	<cstdlib>
 	<ctime>
 
-1568598884 c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.h
+1568604460 c:\users\john\projects\tcc\csc-210\dice-roller\dicetype.h
 
-1568596674 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.cpp
+1568605673 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.cpp
 	"DiceList.h"
 	"DiceType.h"
 	<iostream>
 
-1568592297 c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.h
+1568605658 c:\users\john\projects\tcc\csc-210\dice-roller\dicelist.h
 	"DiceType.h"
 
-1568602241 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicerollui.cpp
+1568604639 source:c:\users\john\projects\tcc\csc-210\dice-roller\dicerollui.cpp
 	"DiceRollUi.h"
 	"DiceList.h"
 	"DiceType.h"
 	<iostream>
 	<limits>
 
-1568602217 c:\users\john\projects\tcc\csc-210\dice-roller\dicerollui.h
+1568606821 c:\users\john\projects\tcc\csc-210\dice-roller\dicerollui.h
 	"DiceList.h"
 
