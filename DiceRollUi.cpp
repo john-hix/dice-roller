@@ -141,7 +141,7 @@ void DiceRollUi::Farewell() {
 // Pre: i is an int variable; lowerBound and upperBound are integers
 // Post: user has been prompted for unit an i in the set [lowerBound, upperBound] is entered
 void DiceRollUi::GetInt(/*OUT*/ int& i, /*IN*/ int lowerBound, /*IN*/ int upperBound) {
-    cout << "Enter an integer: ";
+    cout << "Enter a positive integer: ";
     cin >> i;
     // Validate and reprompt if needed
     while (!cin || i < lowerBound || i > upperBound) {
